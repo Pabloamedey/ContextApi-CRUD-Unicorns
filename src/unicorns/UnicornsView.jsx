@@ -4,9 +4,6 @@ import { useState } from "react";
 import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
-
 
 const UnicornsView = () => {
   const navigate = useNavigate();
@@ -27,30 +24,6 @@ const UnicornsView = () => {
     }
   };
 
-  const handleExportPDF = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(16);
-    doc.text("Listado de Unicornios", 14, 20);
-
-    const tableData = unicorns.map(u => [
-      u.name,
-      u.data?.color,
-      u.data?.power,
-      u.data?.age,
-    ]);
-
-    autoTable(doc, {
-      startY: 30,
-      head: [["Nombre", "Color", "Poder", "Edad"]],
-      body: tableData,
-      styles: { fillColor: [255, 255, 255] },
-      headStyles: { fillColor: [167, 139, 250], textColor: 255 },
-      alternateRowStyles: { fillColor: [245, 245, 245] }
-    });
-
-    doc.save("unicornios.pdf");
-  };
-
   return (
     <div className="section fade-in">
       <h2>Gestión de Unicornios</h2>
@@ -59,7 +32,6 @@ const UnicornsView = () => {
         <Button label="Crear Unicornio" icon="pi pi-plus" onClick={() => navigate("/unicornios/crear")} />
         <Button label="Editar" icon="pi pi-pencil" severity="warning" onClick={handleEdit} disabled={!selectedUnicorn} />
         <Button label="Eliminar" icon="pi pi-trash" severity="danger" onClick={handleDelete} disabled={!selectedUnicorn} />
-        <Button label="Exportar PDF" icon="pi pi-file-pdf" severity="info" onClick={handleExportPDF}/>
       </div>
 
       <DataTable
