@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 const UnicornContext = createContext();
-const API_URL = "https://crudcrud.com/api/88692d7ba89d4008b5f44ad1751eb499/unicorns";
+const API_URL = "https://crudcrud.com/api/58be07aacc604520be32fb8fca8b0e7c/unicorns";
 
 export const UnicornProvider = ({ children }) => {
   const [unicorns, setUnicorns] = useState([]);
@@ -17,28 +17,29 @@ export const UnicornProvider = ({ children }) => {
     }
   };  
 
-  const createUnicorn = async ({ name, color, age, power, status }) => {
+  const createUnicorn = async ({ name, color, age, power }) => {
     try {
       const { data } = await axios.post(API_URL, {
         name,
-        data: { color, age: Number(age), power, status },
+        data: { color, age: Number(age), power },
       });
       setUnicorns((prev) => [...prev, data]);
     } catch (error) {
       alert("Error al crear unicornio");
       console.error(error);
     }
-  };  
+  };
+  
 
-  const editUnicorn = async ({ id, name, color, age, power, status }) => {
+  const editUnicorn = async ({ id, name, color, age, power }) => {
     try {
       await axios.put(`${API_URL}/${id}`, {
         name,
-        data: { color, age: Number(age), power, status },
+        data: { color, age: Number(age), power },
       });
       setUnicorns((prev) =>
         prev.map((u) =>
-          u._id === id ? { ...u, name, data: { color, age, power, status } } : u
+          u._id === id ? { ...u, name, data: { color, age, power } } : u
         )
       );
     } catch (error) {
@@ -49,29 +50,14 @@ export const UnicornProvider = ({ children }) => {
 
   const deleteUnicorn = async (id) => {
     try {
-      const unicorn = unicorns.find((u) => u._id === id);
-      if (!unicorn) return;
-  
-      await axios.put(`${API_URL}/${id}`, {
-        name: unicorn.name,
-        data: {
-          ...unicorn.data,
-          status: "Inactivo",
-        },
-      });
-  
-      setUnicorns((prev) =>
-        prev.map((u) =>
-          u._id === id
-            ? { ...u, data: { ...u.data, status: "Inactivo" } }
-            : u
-        )
-      );
+      await axios.delete(`${API_URL}/${id}`);
+      setUnicorns((prev) => prev.filter((u) => u._id !== id));
     } catch (error) {
-      alert("Error al marcar unicornio como inactivo");
+      alert("Error al eliminar unicornio");
       console.error(error);
     }
-  };    
+  };
+  
 
   useEffect(() => {
     getUnicorns();

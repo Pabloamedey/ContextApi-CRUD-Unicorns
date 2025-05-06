@@ -7,6 +7,7 @@ import { Column } from "primereact/column";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
+
 const UnicornsView = () => {
   const navigate = useNavigate();
   const { unicorns, deleteUnicorn } = useUnicorns();
@@ -28,43 +29,25 @@ const UnicornsView = () => {
 
   const handleExportPDF = () => {
     const doc = new jsPDF();
-  
-    doc.setFontSize(18);
-    doc.setTextColor(103, 80, 164); // color lila
-    doc.text("Listado de Unicornios", 105, 20, { align: "center" });
-  
-    const tableData = unicorns.map((u) => [
+    doc.setFontSize(16);
+    doc.text("Listado de Unicornios", 14, 20);
+
+    const tableData = unicorns.map(u => [
       u.name,
       u.data?.color,
       u.data?.power,
       u.data?.age,
-      u.data?.status || "Activo",
     ]);
-  
+
     autoTable(doc, {
       startY: 30,
-      head: [["Nombre", "Color", "Poder", "Edad", "Estado"]],
+      head: [["Nombre", "Color", "Poder", "Edad"]],
       body: tableData,
-      headStyles: {
-        fillColor: [103, 80, 164],
-        textColor: 255,
-        fontStyle: "bold",
-        halign: "center",
-      },
-      bodyStyles: {
-        halign: "center",
-        textColor: [40, 40, 40],
-      },
-      alternateRowStyles: {
-        fillColor: [245, 245, 255],
-      },
-      styles: {
-        fontSize: 11,
-        cellPadding: 4,
-      },
-      margin: { top: 30 },
+      styles: { fillColor: [255, 255, 255] },
+      headStyles: { fillColor: [167, 139, 250], textColor: 255 },
+      alternateRowStyles: { fillColor: [245, 245, 245] }
     });
-  
+
     doc.save("unicornios.pdf");
   };
 
@@ -94,21 +77,6 @@ const UnicornsView = () => {
         <Column field="data.color" header="Color" />
         <Column field="data.age" header="Edad" />
         <Column field="data.power" header="Poder" />
-        <Column
-          header="Estado"
-          body={(rowData) => {
-            const estado = rowData.data?.status || "Desconocido";
-            const clase =
-              estado === "Activo"
-                ? "estado-activo"
-                : estado === "Inactivo"
-                ? "estado-inactivo"
-                : estado === "En misión"
-                ? "estado-en-mision"
-                : "estado-herido";
-            return <span className={clase}>{estado}</span>;
-          }}
-        />
       </DataTable>
     </div>
   );
