@@ -1,14 +1,16 @@
+
 # 🦄 Unicorn CRUD con React + PrimeReact
 
 ## 📋 Descripción del Proyecto
-Este es un proyecto CRUD (Create, Read, Update, Delete) de Unicornios hecho con React, PrimeReact y Vite. Permite la gestión completa de un listado de unicornios, utilizando una API externa de tipo REST para almacenamiento temporal.
+Este es un proyecto CRUD (Create, Read, Update, Delete) de Unicornios y Productos hecho con React, PrimeReact y Vite. Permite la gestión completa de un listado de unicornios mediante una API externa (`crudcrud.com`), y un módulo adicional de productos con almacenamiento local (`localStorage`).
 
 ## 🚀 Tecnologías Utilizadas
 - ⚛️ React + Vite
-- 🎨 PrimeReact
+- 🎨 PrimeReact + PrimeIcons + PrimeFlex
 - 🌍 React Router DOM
 - 🌐 API externa: [crudcrud.com](https://crudcrud.com)
-- 🧠 Hooks: `useState`, `useEffect`
+- 🧠 Hooks: `useState`, `useEffect`, `useContext`
+- ✅ Formularios con Formik + Yup
 
 ## 🧩 Estructura del Unicornio
 ```json
@@ -25,41 +27,58 @@ Este es un proyecto CRUD (Create, Read, Update, Delete) de Unicornios hecho con 
 ## 📁 Estructura del Proyecto
 ```
 src/
-└── unicorns/
-    ├── index.jsx              # Exporta UnicornsContainer
-    ├── UnicornsContainer.jsx # Contiene la lógica del CRUD
-    └── UnicornsView.jsx       # Vista, inputs, tabla, botones
+├── context/              # Contexto global para unicornios
+├── unicorns/             # CRUD de unicornios: vistas, formularios, rutas
+├── products/             # Módulo independiente para productos
+├── App.jsx               # Ruteo principal
+├── main.jsx              # Entrada de la app
+├── index.css             # Estilos globales personalizados
 ```
 
-## 🔄 Funcionalidad CRUD
-- **Create**: Agrega unicornios con un formulario.
-- **Read**: Muestra los unicornios en una tabla.
-- **Update**: Permite editar unicornios seleccionados.
-- **Delete**: Elimina unicornios seleccionados.
+## 🔄 Funcionalidades por Módulo
+
+### 🦄 Módulo Unicornios
+- **Create**: Crear nuevos unicornios usando un formulario con Formik + Yup.
+- **Read**: Listado con PrimeReact DataTable.
+- **Update**: Edición desde `/editar/:id`.
+- **Delete**: Eliminación desde la vista principal.
+
+### 🛒 Módulo Productos
+- Gestión local con `localStorage`.
+- Formulario propio (`ProductForm`) para agregar productos.
+- Listado de productos con eliminación simple.
 
 ## 🧭 Navegación con Rutas
-Usamos `react-router-dom` para manejar rutas:
-- `/unicornios` → Vista principal del módulo.
+Usamos `react-router-dom` con rutas separadas por módulo:
+
+- `/unicornios` → Ver listado
+- `/unicornios/crear` → Crear nuevo unicornio
+- `/unicornios/editar/:id` → Editar unicornio
+- `/productos` → Vista de productos
 
 ## ⚙️ Requisitos Técnicos
-- Uso de `useEffect` para obtener datos de la API al montar el componente.
-- Manejo de estado con `useState`.
-- Comunicación entre componentes mediante props.
-- Código modular, limpio y documentado.
+- Context API para unicornios (`UnicornContext`)
+- Rutas desacopladas por módulo
+- Formularios con Formik + Yup (validaciones)
+- Estilos con PrimeReact y CSS personalizado
+- Almacenamiento local para productos
 
 ## 💅 Estilo y UX
-- Tema oscuro personalizado para mejor visualización.
-- Uso de componentes accesibles y responsivos con PrimeReact.
+- Tema oscuro elegante con variables CSS
+- Navegación entre módulos con barra superior (`<nav>`)
+- Animaciones suaves (`.fade-in`)
+- Responsive con PrimeFlex
 
 ## 🐞 Manejo de Errores
-- Control de errores en fetch: try-catch / .catch()
-- Validaciones básicas en formularios
+- `try/catch` en llamadas fetch
+- Alertas al usuario en caso de error
+- Validaciones visuales en formularios
 
 ## 🧪 Cómo Ejecutarlo
 1. Clona el repositorio:
 ```bash
-git clone https://github.com/tu_usuario/tu_repo.git
-cd tu_repo
+git clone https://github.com/Pabloamedey/ContextApi-CRUD-Unicorns
+cd ContextApi-CRUD-Unicorns
 ```
 2. Instala dependencias:
 ```bash
@@ -69,16 +88,16 @@ npm install
 ```bash
 npm run dev
 ```
-4. Asegúrate de tener un endpoint único de `crudcrud.com` y reemplazarlo en `UnicornsContainer.jsx`
----
-
-## ✨ Extras (Puntos Opcionales)
-- Navegación entre rutas
-- Validaciones de formularios
-- Estilo visual mejorado
-- Manejo de errores de la API
+4. Reemplazá tu endpoint de `crudcrud.com` en `UnicornContext.jsx` (expira a las 24h)
 
 ---
 
-¡Buena suerte y que la magia de los unicornios los acompañe! 🦄
+## ✨ Extras
+- Validaciones completas con Yup
+- Navegación modular
+- Persistencia con `localStorage`
+- Estilos mágicos 🧙
 
+---
+
+¡Buena suerte y que la magia de los unicornios te acompañe! 🦄
