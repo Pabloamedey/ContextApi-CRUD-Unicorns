@@ -1,0 +1,174 @@
+/* 🎨 Variables mágicas */
+:root {
+  --color-bg: #121212;
+  --color-surface: #1e1e2f;
+  --color-card: #2a2a40;
+  --color-primary: #a78bfa;
+  --color-secondary: #f472b6;
+  --color-text: #e5e7eb;
+  --color-muted: #9ca3af;
+  --color-accent: #38bdf8;
+  --color-warning: #facc15;
+  --color-success: #4ade80;
+
+  --radius: 12px;
+  --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 🌌 Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  padding: 2rem;
+  min-height: 100vh;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 📦 Layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.section {
+  background-color: var(--color-surface);
+  padding: 2rem;
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+  box-shadow: 0 0 20px rgba(167, 139, 250, 0.1);
+}
+
+/* 🦄 Titulares */
+h1, h2, h3 {
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  font-weight: bold;
+  text-shadow: 0 0 4px rgba(167, 139, 250, 0.4);
+}
+
+/* ✨ Inputs y formularios */
+label {
+  font-weight: 600;
+  color: var(--color-muted);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+input, select, textarea, .p-inputtext, .p-inputnumber input {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: var(--radius);
+  border: 1px solid #333;
+  background-color: var(--color-card);
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+/* ⚡ Botones mágicos */
+button, .p-button {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover, .p-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(244, 114, 182, 0.2);
+}
+
+/* 🪄 Tablas mágicas */
+.p-datatable {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 0 16px rgba(48, 44, 57, 0.1);
+  margin-top: 2rem;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  color: white;
+  padding: 1rem;
+  text-align: left;
+  font-weight: bold;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 1rem;
+  background-color: var(--color-card);
+  border-color: #333;
+}
+
+/* 📱 Responsive helpers */
+@media (max-width: 768px) {
+  .section {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+}
+
+/* ✨ Animaciones suaves */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeInUp 0.4s ease-in-out;
+}
+
+/* 🌈 Detalles */
+hr {
+  border: none;
+  height: 1px;
+  background-color: var(--color-muted);
+  margin: 2rem 0;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: var(--color-secondary);
+  text-decoration: underline;
+}
+
+footer {
+  text-align: center;
+  margin-top: 4rem;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+/* 🎯 Personalización de paginador */
+.p-paginator {
+  background: none;
+  border: none;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
