@@ -17,12 +17,14 @@ const UnicornForm = () => {
       color: "",
       age: "",
       power: "",
+      status: "Activo",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Requerido"),
       color: Yup.string().required("Requerido"),
       age: Yup.number().required("Requerido").min(1, "Edad debe ser mayor a 0"),
       power: Yup.string().required("Requerido"),
+      status: Yup.string().required("Requerido"),
     }),
     onSubmit: async (values) => {
       if (id) {
@@ -42,6 +44,7 @@ const UnicornForm = () => {
         color: unicornToEdit.data?.color || "",
         age: unicornToEdit.data?.age || "",
         power: unicornToEdit.data?.power || "",
+        status: unicornToEdit.data?.status || "Activo",
       });
     }
   }, [unicornToEdit]);
@@ -52,44 +55,40 @@ const UnicornForm = () => {
       <form onSubmit={formik.handleSubmit}>
         <div>
           <label>Nombre</label>
-          <input
-            name="name"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-          />
+          <input name="name" value={formik.values.name} onChange={formik.handleChange} />
           {formik.errors.name && <small>{formik.errors.name}</small>}
         </div>
+
         <div>
           <label>Color</label>
-          <input
-            name="color"
-            value={formik.values.color}
-            onChange={formik.handleChange}
-          />
+          <input name="color" value={formik.values.color} onChange={formik.handleChange} />
           {formik.errors.color && <small>{formik.errors.color}</small>}
         </div>
+
         <div>
           <label>Edad</label>
-          <input
-            name="age"
-            type="number"
-            value={formik.values.age}
-            onChange={formik.handleChange}
-          />
+          <input name="age" type="number" value={formik.values.age} onChange={formik.handleChange} />
           {formik.errors.age && <small>{formik.errors.age}</small>}
         </div>
+
         <div>
           <label>Poder</label>
-          <input
-            name="power"
-            value={formik.values.power}
-            onChange={formik.handleChange}
-          />
+          <input name="power" value={formik.values.power} onChange={formik.handleChange} />
           {formik.errors.power && <small>{formik.errors.power}</small>}
         </div>
-        <button type="submit">
-          {id ? "Guardar Cambios" : "Crear Unicornio"}
-        </button>
+
+        <div>
+          <label>Estado</label>
+          <select name="status" value={formik.values.status} onChange={formik.handleChange}>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+            <option value="En misión">En misión</option>
+            <option value="Herido">Herido</option>
+          </select>
+          {formik.errors.status && <small>{formik.errors.status}</small>}
+        </div>
+
+        <button type="submit">{id ? "Guardar Cambios" : "Crear Unicornio"}</button>
       </form>
     </div>
   );
